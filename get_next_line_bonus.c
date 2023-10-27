@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 09:39:43 by npremont          #+#    #+#             */
-/*   Updated: 2023/10/27 12:01:44 by npremont         ###   ########.fr       */
+/*   Updated: 2023/10/27 13:53:44 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*ft_get_after(char *str)
 {
@@ -108,30 +108,30 @@ char	*ft_read(char *stash, char **buff, int fd)
 
 char	*get_next_line(int fd)
 {
-	static char	*buff;
+	static char	*buff[OPEN_MAX];
 	char		*stash;
 
 	if (fd < 0 || read(fd, 0, 0) == -1 || BUFFER_SIZE <= 0)
-		return (ft_free(&buff, 1, NULL), NULL);
+		return (ft_free(&buff[fd], 1, NULL), NULL);
 	stash = ft_calloc(1, sizeof(char));
 	if (!stash)
-		return (ft_free(&buff, 1, NULL), NULL);
-	if (buff == NULL)
+		return (ft_free(&buff[fd], 1, NULL), NULL);
+	if (buff[fd] == NULL)
 	{
-		buff = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-		stash = ft_read(stash, &buff, fd);
+		buff[fd] = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+		stash = ft_read(stash, &buff[fd], fd);
 	}
 	else
 	{
-		if (ft_has_newline(buff))
-			buff = ft_h_endline(&stash, buff, 1);
+		if (ft_has_newline(buff[fd]))
+			buff[fd] = ft_h_endline(&stash, buff[fd], 1);
 		else
 		{
-			stash = ft_strjoin(stash, buff, 1);
-			stash = ft_read(stash, &buff, fd);
+			stash = ft_strjoin(stash, buff[fd], 1);
+			stash = ft_read(stash, &buff[fd], fd);
 		}
 	}
-	ft_free(&stash, 2, &buff);
+	ft_free(&stash, 2, &buff[fd]);
 	return (stash);
 }
 
