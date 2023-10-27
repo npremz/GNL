@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 09:39:43 by npremont          #+#    #+#             */
-/*   Updated: 2023/10/27 12:01:44 by npremont         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:37:56 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,26 +134,3 @@ char	*get_next_line(int fd)
 	ft_free(&stash, 2, &buff);
 	return (stash);
 }
-
-// int	main(int ac, char *av[])
-// {
-// 	int	fd;
-// 	char *path;
-// 	int	i = 0;
-// 	char *line;
-
-// 	path = av[ac - 1];
-// 	fd = open(path, O_RDONLY);
-// 	while (i < 6)
-// 	{
-// 		line = get_next_line(fd);
-// 		if (line)
-// 		{
-// 			printf("%s\n", line);
-// 		}
-// 		free(line);
-// 		++i;
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
