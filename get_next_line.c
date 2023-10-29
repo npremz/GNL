@@ -6,7 +6,7 @@
 /*   By: npremont <npremont@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 09:39:43 by npremont          #+#    #+#             */
-/*   Updated: 2023/10/27 14:37:56 by npremont         ###   ########.fr       */
+/*   Updated: 2023/10/29 16:17:51 by npremont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,4 +133,17 @@ char	*get_next_line(int fd)
 	}
 	ft_free(&stash, 2, &buff);
 	return (stash);
+}
+
+int	main(void)
+{
+	int	fd;
+	char *line;
+
+	fd = open("test.txt", O_RDONLY);
+	while ((line = get_next_line(fd)))
+	{
+		printf("%s\n", line);
+	}
+	return (0);
 }
